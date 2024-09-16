@@ -12,7 +12,7 @@ import (
 
 func Register(c *gin.Context) {
 	var input modelApp.Register
-	err := c.ShouldBindJSON(&input)
+	err := c.BindJSON(&input)
 	if err != nil {
 		log.Printf("Invalid input data: %v", err) // Log error
 		utils.ResponseError(c, http.StatusBadRequest, "Invalid input data: "+err.Error())
@@ -39,5 +39,32 @@ func Register(c *gin.Context) {
 
 		utils.ResponseSuccess(c, gin.H{"message": "Registration successful"})
 	}
+
+}
+
+
+func Login(c *gin.Context)  {
+	var input modelApp.Login
+	err := c.BindJSON(&input)
+	if err != nil {
+		log.Printf("Invalid input data: %v", err) // Log error
+		utils.ResponseError(c, http.StatusBadRequest, "Invalid input data: "+err.Error())
+		return
+	}
+	// validasi nomor hp
+	validatePhone ,err := repository.CheckPhoneNumber(input.Phone)
+	if err != nil {
+		log.Printf("Nomor atau Password salah: %v", validatePhone)
+        c.JSON(http.StatusUnauthorized, gin.H{"message": "Nomor atau Password salah"})
+        return
+	}
+	// validasi password
+	validatePassword := utils.VerifyPassword(validatePhone, input.Password)
+    if validatePassword != nil {
+        log.Printf("Nomor atau Password salah: %v", validatePassword)
+        c.JSON(http.StatusUnauthorized, gin.H{"message": "Nomor atau Password salah"})
+        return
+    }
+	utils.ResponseSuccess(c, gin.H{"message": "login berhasil"})
 
 }
