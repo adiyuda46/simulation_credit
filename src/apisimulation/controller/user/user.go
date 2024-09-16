@@ -65,6 +65,13 @@ func Login(c *gin.Context)  {
         c.JSON(http.StatusUnauthorized, gin.H{"message": "Nomor atau Password salah"})
         return
     }
-	utils.ResponseSuccess(c, gin.H{"message": "login berhasil"})
+	// Generate JWT token
+    token, err := utils.GenerateToken(input.Phone)
+    if err != nil {
+        log.Printf("Failed to generate token: %v", err)
+        c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to generate token"})
+        return
+    }
 
+	utils.ResponseSuccess(c, gin.H{"message": "login berhasil","Token":token})
 }
