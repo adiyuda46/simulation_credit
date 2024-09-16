@@ -1,0 +1,10 @@
+{
+    "simulation": {
+        "server": "localhost",
+        "portdb": 5432,
+        "user": "postgres",
+        "password": "masuksaja",
+        "scheme": "simulasi"
+    },
+    "token":"simulasi"
+}

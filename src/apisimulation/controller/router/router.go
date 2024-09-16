@@ -3,9 +3,11 @@ package router
 import (
 	//"simulation/src/apisimulation/controller/router"
 
+	user "simulation/src/apisimulation/controller/user"
+	"simulation/src/apisimulation/controller/utils"
+
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
-	user "simulation/src/apisimulation/controller/user"
 )
 
 func Router() *gin.Engine {
@@ -20,10 +22,16 @@ return router
 func InitRouter(router *gin.Engine)  {
 	v1public := router.Group("/api/v1/public")
 	{
-		v1public.POST("login",user.Login)
+		v1public.POST("/login",user.Login)
 		v1public.POST("/register",user.Register)
 		v1public.POST("getUser/id")
 		v1public.GET("getAllUser")
 		v1public.POST("deleteUser/id")
 	}
+	v1private := router.Group("/api/v1/private")
+	v1private.Use(utils.AuthMiddleware())
+	{
+		v1private.GET("/tes",user.GetUserDetails)
+	}
 }
+

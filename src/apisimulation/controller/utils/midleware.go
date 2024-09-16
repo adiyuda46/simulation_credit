@@ -6,10 +6,11 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 // Secret key untuk JWT
-var jwtSecret = []byte("your_secret_key") // Ganti dengan secret key yang aman
+var jwtSecret = []byte(viper.GetString("token")) // Ganti dengan secret key yang aman
 
 // Fungsi untuk membuat token JWT
 func GenerateToken(phone string) (string, error) {

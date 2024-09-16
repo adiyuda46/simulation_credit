@@ -75,3 +75,14 @@ func Login(c *gin.Context)  {
 
 	utils.ResponseSuccess(c, gin.H{"message": "login berhasil","Token":token})
 }
+
+// Fungsi untuk mendapatkan detail pengguna
+func GetUserDetails(c *gin.Context) {
+    phone := c.MustGet("phone").(string) // Ambil phone dari konteks
+    userDetails := modelApp.Login{
+        Phone: phone,
+        Password: "koko", // Ganti dengan data sebenarnya dari database
+    }
+
+    c.JSON(http.StatusOK, userDetails)
+}

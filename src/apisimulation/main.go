@@ -5,7 +5,17 @@ import (
 	"log"
 	Connect "simulation/src/apisimulation/controller/connection"
 	router "simulation/src/apisimulation/controller/router"
+	logger "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
+func init() {
+	viper.SetConfigFile("src/config/config.json")
+	err := viper.ReadInConfig()
+	if err != nil {
+		logger.Fatal(err)
+	}
+}
+
 
 func main() {
 	// init ke database
