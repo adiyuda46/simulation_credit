@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
+	user "simulation/src/apisimulation/controller/user"
 )
 
 func Router() *gin.Engine {
@@ -19,8 +20,8 @@ return router
 func InitRouter(router *gin.Engine)  {
 	v1public := router.Group("/api/v1/public")
 	{
-		v1public.POST("login")
-		v1public.POST("register")
+		//v1public.POST("login")
+		v1public.POST("/register",user.Register)
 		v1public.POST("getUser/id")
 		v1public.GET("getAllUser")
 		v1public.POST("deleteUser/id")
