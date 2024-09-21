@@ -4,6 +4,7 @@ import (
 	//"simulation/src/apisimulation/controller/router"
 
 	user "simulation/src/apisimulation/controller/user"
+	product "simulation/src/apisimulation/controller/product"
 	"simulation/src/apisimulation/controller/utils"
 
 	"github.com/gin-contrib/requestid"
@@ -24,10 +25,9 @@ func InitRouter(router *gin.Engine)  {
 	{
 		v1public.POST("/login",user.Login)
 		v1public.POST("/register",user.Register)
-		v1public.POST("getUser/id")
-		v1public.GET("getAllUser")
-		v1public.POST("deleteUser/id")
-		v1public.GET("/tes",user.Tes)
+		v1public.GET("/lob",product.Lob)
+		v1public.POST("/lob/id")
+		//v1public.GET("/tes",user.Tes)
 	}
 	v1private := router.Group("/api/v1/private")
 	v1private.Use(utils.AuthMiddleware())
