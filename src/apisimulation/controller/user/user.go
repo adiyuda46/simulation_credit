@@ -37,7 +37,16 @@ func Register(c *gin.Context) {
 			return
 		}
 
-		utils.ResponseSuccess(c, gin.H{"message": "Registration successful"})
+		// Generate JWT token
+		token, err := utils.GenerateToken(input.Phone)
+		if err != nil {
+			log.Printf("Failed to generate token: %v", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to generate token"})
+			return
+		}
+		// insert token ke db
+
+		utils.ResponseSuccess(c, gin.H{"message": "Registration successful","Token": token})
 	}
 
 }
@@ -85,4 +94,16 @@ func GetUserDetails(c *gin.Context) {
     }
 
     c.JSON(http.StatusOK, userDetails)
+}
+
+
+func Tes(c *gin.Context)  {
+	// validasi nomor hp
+	validatePhone ,err := repository.Supabase()
+	if err != nil {
+		log.Printf("Nomor atau Password salah: %v", validatePhone)
+        c.JSON(http.StatusUnauthorized, gin.H{"message": "Nomor atau Password salah"})
+        return
+	}
+	utils.ResponseSuccess(c, gin.H{"message": "login berhasil","nama":validatePhone})
 }

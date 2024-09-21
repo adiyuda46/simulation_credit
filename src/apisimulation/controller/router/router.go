@@ -27,6 +27,7 @@ func InitRouter(router *gin.Engine)  {
 		v1public.POST("getUser/id")
 		v1public.GET("getAllUser")
 		v1public.POST("deleteUser/id")
+		v1public.GET("/tes",user.Tes)
 	}
 	v1private := router.Group("/api/v1/private")
 	v1private.Use(utils.AuthMiddleware())

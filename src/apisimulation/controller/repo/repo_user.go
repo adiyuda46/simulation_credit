@@ -6,6 +6,7 @@ import (
 	"log"
 	conn "simulation/src/apisimulation/controller/connection"
 	"simulation/src/apisimulation/controller/utils"
+
 )
 
 func RegisterRepository(name, password, email, phone string) error {
@@ -70,6 +71,21 @@ func CheckPhoneNumber(phone string) (string, error) {
 
 	var result string
 	row := db.QueryRow(query, phone).Scan(&result)
+	if row != nil {
+		log.Printf("Execution failed: %v", row)
+		return "", row
+	}
+	return result, nil
+}
+func Supabase() (string,error) {
+	db, errConn := conn.ConnectToDatabase()
+	if errConn != nil {
+		log.Printf("Database connection failed: %v", errConn) // Log error
+		return "", errConn
+	}
+	var result string
+	query := `SELECT "nama" FROM public."user"`
+	row := db.QueryRow(query).Scan(&result)
 	if row != nil {
 		log.Printf("Execution failed: %v", row)
 		return "", row
