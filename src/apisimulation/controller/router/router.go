@@ -27,12 +27,19 @@ func InitRouter(router *gin.Engine)  {
 		v1public.POST("/register",user.Register)
 		v1public.GET("/lob",product.Lob)
 		v1public.POST("/lob/id",product.LobById)
+
 		//v1public.GET("/tes",user.Tes)
 	}
 	v1private := router.Group("/api/v1/private")
 	v1private.Use(utils.AuthMiddleware())
 	{
-		v1private.GET("/tes",user.GetUserDetails)
+		//v1private.GET("/",product.GetUserInfo)
+
+		// lob MYB
+		v1private.GET("/category/newmotorcycle",product.MasterCatNewMotorcycle)
+		v1private.POST("/product/newmotorcycle",product.ProductNewMotorcycle)
+		v1private.POST("/price/newmotorcycle",product.PriceNewMotorcycle)
+
 	}
 }
 

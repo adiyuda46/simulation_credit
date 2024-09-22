@@ -2,6 +2,7 @@ package utils
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -13,9 +14,9 @@ import (
 var jwtSecret = []byte(viper.GetString("token")) // Ganti dengan secret key yang aman
 
 // Fungsi untuk membuat token JWT
-func GenerateToken(phone string) (string, error) {
+func GenerateToken(userID int) (string, error) {
     claims := jwt.MapClaims{
-        "sub": phone, // Menggunakan phone sebagai ID pengguna
+        "sub": strconv.Itoa(userID), // Mengonversi userID ke string
         "exp": time.Now().Add(time.Hour * 1).Unix(), // Token berlaku selama 1 jam
     }
     token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -48,17 +49,23 @@ func AuthMiddleware() gin.HandlerFunc {
             return
         }
 
-        // Memeriksa klaim untuk memastikan token milik pengguna yang tepat
-        userID := claims["sub"].(string) // Mengambil ID pengguna dari klaim
-        requestUserID := c.Param("userID") // Mengambil ID pengguna dari URL atau parameter
-
-        if userID != requestUserID {
-            c.JSON(http.StatusUnauthorized, gin.H{"message": "Token does not belong to this user"})
+        // Mengambil ID pengguna dari klaim
+        userIDStr, ok := claims["sub"].(string)
+        if !ok {
+            c.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid token claims"})
             c.Abort()
             return
         }
 
-        // Simpan klaim ke dalam konteks
+        // Mengonversi kembali ke integer
+        userID, err := strconv.Atoi(userIDStr)
+        if err != nil {
+            c.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid user ID"})
+            c.Abort()
+            return
+        }
+
+        // Simpan userID ke dalam konteks
         c.Set("userID", userID)
         c.Next()
     }

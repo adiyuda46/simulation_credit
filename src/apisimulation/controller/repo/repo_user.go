@@ -6,6 +6,7 @@ import (
 	"log"
 	conn "simulation/src/apisimulation/controller/connection"
 	"simulation/src/apisimulation/controller/utils"
+	modelApp "simulation/src/apisimulation/model"
 
 )
 
@@ -91,4 +92,25 @@ func Supabase() (string,error) {
 		return "", row
 	}
 	return result, nil
+}
+
+func GetUserbyPhone(phone string) (*modelApp.User, error) {
+    // Connect to DB
+    db, errConn := conn.ConnectToDatabase()
+    if errConn != nil {
+        log.Printf("Database connection failed: %v", errConn) // Log error
+        return nil, errConn // Kembalikan nil jika terjadi kesalahan
+    }
+
+    query := `select "ID","NAME","PASSWORD","EMAIL" from public."USER" where "PHONE_NUMBER" = $1`
+
+    var user modelApp.User
+    row := db.QueryRow(query, phone).Scan(&user.Id, &user.Name, &user.Password, &user.Email)
+    
+    if row != nil {
+        log.Printf("Query failed: %v", row)
+        return nil, row
+    }
+
+    return &user, nil // Kembalikan pointer ke pengguna yang ditemukan
 }

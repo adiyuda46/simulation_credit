@@ -38,7 +38,7 @@ func Register(c *gin.Context) {
 		}
 
 		// Generate JWT token
-		token, err := utils.GenerateToken(input.Phone)
+		token, err := utils.GenerateToken(100)
 		if err != nil {
 			log.Printf("Failed to generate token: %v", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to generate token"})
@@ -74,8 +74,18 @@ func Login(c *gin.Context)  {
         c.JSON(http.StatusUnauthorized, gin.H{"message": "Nomor atau Password salah"})
         return
     }
+
+	//get user id
+	userId ,err := repository.GetUserbyPhone(input.Phone)
+	if err != nil {
+		log.Println("data not found")
+        c.JSON(http.StatusUnauthorized, gin.H{"message": "Nomor atau Password salah"})
+        return
+	}
+
+
 	// Generate JWT token
-    token, err := utils.GenerateToken(input.Phone)
+    token, err := utils.GenerateToken(userId.Id)
     if err != nil {
         log.Printf("Failed to generate token: %v", err)
         c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to generate token"})
