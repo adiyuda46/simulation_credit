@@ -32,9 +32,13 @@ func ProductNewMotorcycle(c *gin.Context) {
 		utils.ResponseError(c, http.StatusBadRequest, "Invalid input data: "+err.Error())
 		return
 	}
-	productName, err := repository.GetProductNewMotorcycle(input.Categorty)
+	productName, err := repository.GetProductNewMotorcycle(input.Category)
 	if err != nil {
 		utils.ResponseError(c, http.StatusNotFound, "data not found: "+err.Error())
+		return
+	}
+	if len(productName) == 0 {
+		utils.ResponseError(c, http.StatusNotFound, "Data not found for category: "+input.Category)
 		return
 	}
 	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "product name": productName})

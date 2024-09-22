@@ -10,7 +10,7 @@ type (
 		Id      int `json:"Id"`
 	}
 	ProductName struct {
-		Categorty string `json:"Categorty"`
+		Category string `json:"Categorty"`
 	}
 	Price struct {
 		Categorty string `json:"Categorty"`
