@@ -6,4 +6,7 @@ type (
 		LobName string `json:"LobName"`
 		Desc    string `json:"Desc"`
 	}
+	GetLob struct {
+		Id      int `json:"Id"`
+	}
 )

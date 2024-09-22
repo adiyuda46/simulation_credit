@@ -34,3 +34,20 @@ func GetAllLob()([]modelApp.AllLob,error)  {
 	
 	return results,nil
 }
+
+func GetLobByid(id int)(string,error)  {
+	// Connect to DB
+	db, errConn := conn.ConnectToDatabase()
+	if errConn != nil {
+		log.Printf("Database connection failed: %v", errConn) // Log error
+		return "", errConn
+	}
+	query := `select "LOB_NAME" from public."LOB" where "ID" = $1`
+	var result string
+	row := db.QueryRow(query,id).Scan(&result)
+	if row != nil {
+		log.Printf("Execution failed: %v", row)
+		return "", row
+	}
+	return result , nil
+}

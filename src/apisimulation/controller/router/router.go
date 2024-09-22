@@ -26,7 +26,7 @@ func InitRouter(router *gin.Engine)  {
 		v1public.POST("/login",user.Login)
 		v1public.POST("/register",user.Register)
 		v1public.GET("/lob",product.Lob)
-		v1public.POST("/lob/id")
+		v1public.POST("/lob/id",product.LobById)
 		//v1public.GET("/tes",user.Tes)
 	}
 	v1private := router.Group("/api/v1/private")
