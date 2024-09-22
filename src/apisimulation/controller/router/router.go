@@ -52,6 +52,9 @@ func InitRouter(router *gin.Engine)  {
 		v1private.POST("/price/car",product.PriceCar)
 
 		// lob Mp
+		v1private.GET("/category/multiproduct",product.MasterMultiproduct)
+		v1private.POST("/product/multiproduct",product.ProductMultiproduct)
+		v1private.POST("/price/multiproduct",product.PriceMultiproduct)
 
 		// simulasi
 		v1private.POST("/simulation",simulasi.Simulation)
