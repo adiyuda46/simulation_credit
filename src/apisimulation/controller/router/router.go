@@ -40,6 +40,11 @@ func InitRouter(router *gin.Engine)  {
 		v1private.POST("/product/newmotorcycle",product.ProductNewMotorcycle)
 		v1private.POST("/price/newmotorcycle",product.PriceNewMotorcycle)
 
+		// lob MB
+		v1private.GET("/category/usedmotorcycle",product.MasterCatIUsedMotorcycle)
+		v1private.POST("/product/usedmotorcycle",product.ProductUsedMotorcycle)
+		v1private.POST("/price/usedmotorcycle",product.PriceUsedMotorcycle)
+
 	}
 }
 
