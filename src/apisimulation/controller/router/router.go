@@ -6,6 +6,7 @@ import (
 	user "simulation/src/apisimulation/controller/user"
 	product "simulation/src/apisimulation/controller/product"
 	"simulation/src/apisimulation/controller/utils"
+	simulasi "simulation/src/apisimulation/controller/simulation"
 
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
@@ -46,10 +47,16 @@ func InitRouter(router *gin.Engine)  {
 		v1private.POST("/price/usedmotorcycle",product.PriceUsedMotorcycle)
 
 		// lob car
-		// lob MB
 		v1private.GET("/category/car",product.MasterCatCar)
 		v1private.POST("/product/car",product.ProductCar)
 		v1private.POST("/price/car",product.PriceCar)
+
+		// lob Mp
+
+		// simulasi
+		v1private.POST("/simulation",simulasi.Simulation)
+
+
 	}
 }
 
