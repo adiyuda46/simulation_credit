@@ -59,7 +59,8 @@ func InitRouter(router *gin.Engine)  {
 		// simulasi
 		v1private.POST("/simulation",simulasi.Simulation)
 
-
+		// agreement
+		v1private.GET("/agrement")
 	}
 }
 
