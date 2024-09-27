@@ -1,0 +1,8 @@
+{
+  "build": {
+    "output": "out"
+  },
+  "start": {
+    "command": "go run src/apisimulation/main.go"
+  }
+}
