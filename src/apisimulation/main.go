@@ -5,9 +5,11 @@ import (
 	"log"
 	Connect "simulation/src/apisimulation/controller/connection"
 	router "simulation/src/apisimulation/controller/router"
+
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
+
 func init() {
 	viper.SetConfigFile("src/config/config.json")
 	err := viper.ReadInConfig()
@@ -15,7 +17,6 @@ func init() {
 		logger.Fatal(err)
 	}
 }
-
 
 func main() {
 	// init ke database
@@ -27,7 +28,7 @@ func main() {
 	}
 	defer db.Close()
 	fmt.Println("Terhubung ke server PostgreSQL!")
-	addr := ":8081" // port local host
+	addr := ":4000" // port local host
 	host := "http://localhost"
 
 	// Membuat router
