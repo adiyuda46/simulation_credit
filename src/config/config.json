@@ -1,0 +1,10 @@
+{
+    "simulation": {
+        "server": "aws-0-ap-southeast-1.pooler.supabase.com",
+        "portdb": 6543,
+        "user": "postgres.eacazkpebdwsrpnwhxer",
+        "password": "CtJz9jdy7weCmlOK",
+        "scheme": "postgres"
+    },
+    "token":"simulasi"
+}
