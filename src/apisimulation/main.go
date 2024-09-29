@@ -28,7 +28,7 @@ func main() {
 	}
 	defer db.Close()
 	fmt.Println("Terhubung ke server PostgreSQL!")
-	addr := ":4000" // port local host
+	addr := ":8080" // port local host
 	host := "http://localhost"
 
 	// Membuat router
