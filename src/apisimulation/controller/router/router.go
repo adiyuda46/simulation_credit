@@ -59,8 +59,10 @@ func InitRouter(router *gin.Engine)  {
 		// simulasi
 		v1private.POST("/simulation",simulasi.Simulation)
 
+		// api submit ajukan 
+		v1private.POST("/submit/pengajuan",simulasi.SubmitPengajuan)
 		// agreement
-		v1private.GET("/agrement")
+		v1private.GET("/agrement",product.GetAgrement)
 	}
 }
 

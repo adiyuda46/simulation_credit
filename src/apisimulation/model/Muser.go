@@ -18,11 +18,4 @@ type (
 		Password string `json:"Password"`
 		
 	}
-	ListAgreement struct {
-		Agrement string
-		Amountinstalment int
-		Product string
-		Instalment string
-		
-	}
 )

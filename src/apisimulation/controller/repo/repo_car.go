@@ -83,7 +83,7 @@ INNER JOIN public."PRODUCT" AS "P" ON "c"."CATEGORY" = "P"."CATEGORY"
 WHERE "P"."CATEGORY" = $1 AND "c"."PRODUCT_NAME" = $2`
 
 	var result string
-	row := db.QueryRow(query, req.Categorty, req.ProductName).Scan(&result)
+	row := db.QueryRow(query, req.Category, req.ProductName).Scan(&result)
 	if row != nil {
 		log.Printf("Query failed: %v", row)
 		return "", row

@@ -6,7 +6,7 @@ import (
 	repository "simulation/src/apisimulation/controller/repo"
 	"simulation/src/apisimulation/controller/utils"
 	modelApp "simulation/src/apisimulation/model"
-
+   
 	"github.com/gin-gonic/gin"
 )
 
@@ -37,13 +37,13 @@ func ProductMultiproduct(c *gin.Context) {
 		utils.ResponseError(c, http.StatusNotFound, "Data not found: "+err.Error())
 		return
 	}
-	
+
 	if len(productName) == 0 {
 		utils.ResponseError(c, http.StatusNotFound, "Data not found for category: "+input.Category)
 		return
 	}
 
-	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "product name": productName})
+	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "varian": productName})
 }
 
 func PriceMultiproduct(c *gin.Context) {
@@ -59,5 +59,5 @@ func PriceMultiproduct(c *gin.Context) {
 		utils.ResponseError(c, http.StatusNotFound, "data not found: "+err.Error())
 		return
 	}
-	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "price product": price})
+	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "priceProduct": price})
 }

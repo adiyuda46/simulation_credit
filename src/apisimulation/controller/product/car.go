@@ -42,7 +42,7 @@ func ProductCar(c *gin.Context) {
 		return
 	}
 
-	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "product name": productName})
+	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "varian": productName})
 
 }
 
@@ -59,5 +59,5 @@ func PriceCar(c *gin.Context) {
 		utils.ResponseError(c, http.StatusNotFound, "data not found: "+err.Error())
 		return
 	}
-	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "price product": price})
+	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "priceProduct": price})
 }

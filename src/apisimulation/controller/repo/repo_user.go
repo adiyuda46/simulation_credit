@@ -115,6 +115,3 @@ func GetUserbyPhone(phone string) (*modelApp.User, error) {
     return &user, nil // Kembalikan pointer ke pengguna yang ditemukan
 }
 
-func GetAgrement(userId string)()  {
-	
-}

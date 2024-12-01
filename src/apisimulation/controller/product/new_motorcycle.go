@@ -1,6 +1,7 @@
 package product
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	repository "simulation/src/apisimulation/controller/repo"
@@ -41,7 +42,7 @@ func ProductNewMotorcycle(c *gin.Context) {
 		utils.ResponseError(c, http.StatusNotFound, "Data not found for category: "+input.Category)
 		return
 	}
-	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "product name": productName})
+	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "varian": productName})
 
 }
 
@@ -58,5 +59,6 @@ func PriceNewMotorcycle(c *gin.Context) {
 		utils.ResponseError(c, http.StatusNotFound, "data not found: "+err.Error())
 		return
 	}
-	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "price product": price})
+	fmt.Println("dkkd : ",price)
+	utils.ResponseSuccess(c, gin.H{"message": "Data ditemukan", "priceProduct": price})
 }

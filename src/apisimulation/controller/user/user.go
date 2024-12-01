@@ -92,7 +92,7 @@ func Login(c *gin.Context)  {
         return
     }
 
-	utils.ResponseSuccess(c, gin.H{"message": "login berhasil","Token":token})
+	utils.ResponseSuccess(c, gin.H{"Message": "login berhasil","Token":token})
 }
 
 // Fungsi untuk mendapatkan detail pengguna

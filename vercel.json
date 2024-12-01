@@ -1,0 +1,9 @@
+{
+    "routes": [
+      { 
+        "src": "/api(.*)",
+        "dest": "src/apisimulation/main.go" 
+      }
+    ]
+    
+  }
