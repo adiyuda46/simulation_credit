@@ -18,4 +18,10 @@ type (
 		Password string `json:"Password"`
 		
 	}
+	UserDetails struct {
+		Name     string `json:"Name"`
+		Email    string `json:"Email"`
+		Phone string `json:"Phone"`
+		
+	}
 )

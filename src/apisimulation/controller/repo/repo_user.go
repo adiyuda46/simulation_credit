@@ -115,3 +115,26 @@ func GetUserbyPhone(phone string) (*modelApp.User, error) {
     return &user, nil // Kembalikan pointer ke pengguna yang ditemukan
 }
 
+// GetAccountDetail retrieves user details from the database based on the user ID.
+func GetAccountDetail(id int) (*modelApp.UserDetails, error) {
+    // Connect to DB
+    db, errConn := conn.ConnectToDatabase()
+    if errConn != nil {
+        log.Printf("Database connection failed: %v", errConn) // Log error
+        return nil, errConn // Return nil if there is an error
+    }
+    defer db.Close() // Ensure the database connection is closed after the function completes
+
+    query := `SELECT "NAME", "EMAIL", "PHONE_NUMBER" FROM public."USER" WHERE "ID" = $1`
+    var userDetails modelApp.UserDetails
+
+    // Execute the query
+    err := db.QueryRow(query, id).Scan(&userDetails.Name, &userDetails.Email, &userDetails.Phone)
+    if err != nil {
+        log.Printf("Query execution failed: %v", err) // Log error
+        return nil, err // Return nil if there is an error
+    }
+
+    return &userDetails, nil // Return the user details
+}
+

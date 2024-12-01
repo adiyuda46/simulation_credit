@@ -95,15 +95,17 @@ func Login(c *gin.Context)  {
 	utils.ResponseSuccess(c, gin.H{"Message": "login berhasil","Token":token})
 }
 
-// Fungsi untuk mendapatkan detail pengguna
+// GetUserDetails handles the HTTP request to get user details.
 func GetUserDetails(c *gin.Context) {
-    phone := c.MustGet("phone").(string) // Ambil phone dari konteks
-    userDetails := modelApp.Login{
-        Phone: phone,
-        Password: "koko", // Ganti dengan data sebenarnya dari database
+    userID := c.MustGet("userID").(int) // Get user ID from context
+    userDetails, err := repository.GetAccountDetail(userID) // Call the function to get user details
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve user details"}) // Return error response
+        return
     }
+	utils.ResponseSuccess(c, gin.H{"Deatail Account": userDetails})
 
-    c.JSON(http.StatusOK, userDetails)
+    
 }
 
 
@@ -116,4 +118,12 @@ func Tes(c *gin.Context)  {
         return
 	}
 	utils.ResponseSuccess(c, gin.H{"message": "login berhasil","nama":validatePhone})
+}
+
+func DetailAccount(c * gin.Context)  {
+	// get id by token
+	
+	
+
+
 }
